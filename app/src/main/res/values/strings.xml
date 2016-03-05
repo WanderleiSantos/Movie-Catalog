@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MovieCatalog</string>
     <string name="txt_ref_desenvolvedor">Desenvolvido por Wanderlei Santos</string>
+    <string name="txt_noimage">No Image</string>
 </resources>

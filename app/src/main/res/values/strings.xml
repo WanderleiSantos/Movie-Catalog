@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MovieCatalog</string>
-    <string name="txt_ref_desenvolvedor">Desenvolvido por Wanderlei Santos</string>
-    <string name="txt_noimage">No Image</string>
+    <string name="lbl_ref_desenvolvedor">Desenvolvido por Wanderlei Santos</string>
+    <string name="lbl_noimage">No Image</string>
+    <string name="base_url">https://api.themoviedb.org/3/</string>
+    <string name="api_key">00</string>
 </resources>

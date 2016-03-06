@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:text="@string/txt_ref_desenvolvedor"
+            android:text="@string/lbl_ref_desenvolvedor"
             android:gravity="right"
             android:textAppearance="?android:attr/textAppearanceSmall"/>
     </LinearLayout>

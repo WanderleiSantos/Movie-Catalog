@@ -17,9 +17,9 @@
         <ImageView
             android:id="@+id/img_movie"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/txt_noimage" />
+            android:contentDescription="@string/lbl_noimage" />
         
         <TextView
             android:id="@+id/title_movie"
@@ -28,7 +28,7 @@
             android:textSize="10sp"
             android:textColor="@color/white"
             android:gravity="center"
-            android:layout_below="@+id/img_movie"
+
             android:paddingBottom="1dp"
             android:paddingTop="1dp"
             android:text="Imagem Teste"

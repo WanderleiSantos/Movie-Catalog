@@ -8,13 +8,22 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
+import com.wanderlei.moviecatalog.dagger.MainViewModule;
+import com.wanderlei.moviecatalog.presenter.MainPresenter;
+import com.wanderlei.moviecatalog.view.MainView;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
+
+    @Inject
+    MainPresenter presenter;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -26,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+
+        ((MovieCatalogApplication) getApplication()).getObjectGraph().plus(new MainViewModule(this)).inject(this);
 
         setSupportActionBar(toolbar);
         final ActionBar  actionBar = getSupportActionBar();

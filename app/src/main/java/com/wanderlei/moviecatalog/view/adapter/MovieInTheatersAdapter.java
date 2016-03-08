@@ -40,7 +40,7 @@ public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheaters
         Movie movie = movieList.get(position);
         holder.itemView.setTag(movie);
 
-        //holder.title_movie.setText("teste 002");
+        holder.title_movie.setText(movie.getTitle());
     }
 
     @Override

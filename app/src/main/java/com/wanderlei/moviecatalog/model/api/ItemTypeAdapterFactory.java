@@ -33,9 +33,9 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
                 JsonElement jsonElement = elementAdapter.read(in);
                 if (jsonElement.isJsonObject()) {
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-                    if (jsonObject.has("items"))
+                    if (jsonObject.has("results"))
                     {
-                        jsonElement = jsonObject.get("items");
+                        jsonElement = jsonObject.get("results");
                     }
                 }
 

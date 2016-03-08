@@ -3,5 +3,12 @@
     <string name="lbl_ref_desenvolvedor">Desenvolvido por Wanderlei Santos</string>
     <string name="lbl_noimage">No Image</string>
     <string name="base_url">https://api.themoviedb.org/3/</string>
-    <string name="api_key">00</string>
+    <string name="api_key">null</string>
+
+    <string name="lbl_intheaters">InTheaters</string>
+    <string name="lbl_upcoming">UpComing</string>
+    <string name="lbl_popular">Popular</string>
+    <string name="lbl_categoria">Categoria</string>
+
+
 </resources>

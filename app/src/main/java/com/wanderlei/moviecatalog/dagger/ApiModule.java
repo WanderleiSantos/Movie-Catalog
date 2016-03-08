@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.model.api.ItemTypeAdapterFactory;
+import com.wanderlei.moviecatalog.model.api.MovieApi;
+import com.wanderlei.moviecatalog.model.api.impl.MovieApiImpl;
 import com.wanderlei.moviecatalog.model.api.resources.MovieResource;
 
 import dagger.Module;
@@ -21,9 +23,7 @@ public class ApiModule {
 
     @Provides
     public Retrofit provideRetrofit(Context context){
-        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ItemTypeAdapterFactory())
-                .setDateFormat("yyyy'-'MM'-'dd'")
-                .create();
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ItemTypeAdapterFactory()).create();
         return new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -33,6 +33,11 @@ public class ApiModule {
     @Provides
     public MovieResource provideMovieResource(Context context){
         return provideRetrofit(context).create(MovieResource.class);
+    }
+
+    @Provides
+    public MovieApi provideMovieApi(Context context){
+        return new MovieApiImpl(context, provideMovieResource(context));
     }
 
 

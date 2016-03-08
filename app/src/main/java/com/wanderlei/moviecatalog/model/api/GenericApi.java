@@ -30,7 +30,7 @@ public abstract class GenericApi implements AsyncService {
     }
 
     public void verifyServiceResultListner(){
-        if (getServiceApiResultListner() != null){
+        if (getServiceApiResultListner() == null){
             throw new RuntimeException("Set ApiResultListener instance");
         }
     }

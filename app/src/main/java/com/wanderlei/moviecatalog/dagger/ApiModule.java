@@ -23,7 +23,9 @@ public class ApiModule {
 
     @Provides
     public Retrofit provideRetrofit(Context context){
-        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ItemTypeAdapterFactory()).create();
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ItemTypeAdapterFactory())
+                .setDateFormat("yyyy-MM-dd")
+                .create();
         return new Retrofit.Builder()
                 .baseUrl(context.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create(gson))

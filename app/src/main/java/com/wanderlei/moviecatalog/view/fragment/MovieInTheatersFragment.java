@@ -25,7 +25,10 @@ import com.wanderlei.moviecatalog.view.MovieInTheatersView;
 import com.wanderlei.moviecatalog.view.adapter.MovieInTheatersAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,6 +54,7 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
     SwipeRefreshLayout swipe_movieintheaters;
 
     private final String BUNDLE_KEY_MOVIELIST = "bundle_key_movielist";
+    private final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
     private List<Movie> movieList;
 
 
@@ -67,7 +71,7 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
             movieList = savedInstanceState.getParcelableArrayList(BUNDLE_KEY_MOVIELIST);
             showMovies(movieList);
         } else {
-            presenter.loadMoviesInTheaters("2014-09-15", "2014-10-22");
+            presenter.loadMoviesInTheaters(simpleFormat.format(getDataAtual()), simpleFormat.format(getProximaSemana()));
         }
 
         return view;
@@ -112,11 +116,32 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
         GridLayoutManager lLayout = new GridLayoutManager(getActivity(), 3);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(lLayout);
+
+        if (swipe_movieintheaters.isRefreshing()) {
+            swipe_movieintheaters.setRefreshing(false);
+        }
     }
 
     @Override
     public void onRefresh() {
-        presenter.loadMoviesInTheaters("2014-09-15", "2014-10-22");
+        presenter.loadMoviesInTheaters(simpleFormat.format(getDataAtual()), simpleFormat.format(getProximaSemana()));
         progressBar.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    public Date getDataAtual() {
+        Calendar calendar = Calendar.getInstance();
+        Date date = new Date();
+        calendar.setTime(date);
+        return calendar.getTime();
+    }
+
+    public Date getProximaSemana(){
+        Calendar calendar = Calendar.getInstance();
+        int ano = calendar.get(Calendar.YEAR);
+        int mes = calendar.get(Calendar.MONTH);
+        int dia = calendar.get(Calendar.DAY_OF_MONTH) + 7;
+        calendar.set(ano, mes, dia);
+        return calendar.getTime();
     }
 }

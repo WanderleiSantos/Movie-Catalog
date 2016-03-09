@@ -3,6 +3,8 @@
     <string name="lbl_ref_desenvolvedor">Desenvolvido por Wanderlei Santos</string>
     <string name="lbl_noimage">No Image</string>
     <string name="base_url">https://api.themoviedb.org/3/</string>
+    <string name="base_url_img_logo500">http://image.tmdb.org/t/p/w500/</string>
+    <string name="base_url_img__logo185">http://image.tmdb.org/t/p/w185/</string>
     <string name="api_key">null</string>
 
     <string name="lbl_intheaters">InTheaters</string>

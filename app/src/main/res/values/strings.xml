@@ -5,12 +5,15 @@
     <string name="base_url">https://api.themoviedb.org/3/</string>
     <string name="base_url_img_logo500">http://image.tmdb.org/t/p/w500/</string>
     <string name="base_url_img__logo185">http://image.tmdb.org/t/p/w185/</string>
-    <string name="api_key">null</string>
+    <string name="api_key">1fb1a9dd7bda5f323054132a88291c64</string>
 
     <string name="lbl_intheaters">InTheaters</string>
     <string name="lbl_upcoming">UpComing</string>
     <string name="lbl_popular">Popular</string>
     <string name="lbl_categoria">Categoria</string>
+
+    <string name="lbl_description_release">Release</string>
+    <string name="lbl_description_directedby">Directed By</string>
 
 
 </resources>

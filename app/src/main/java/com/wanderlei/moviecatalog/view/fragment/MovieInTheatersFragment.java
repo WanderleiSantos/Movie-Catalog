@@ -87,8 +87,8 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
 
     @Override
     public void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -104,6 +104,11 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
 
     @Override
     public void showMovies(List<Movie> movieList) {
+
+        if (swipe_movieintheaters.isRefreshing()) {
+            swipe_movieintheaters.setRefreshing(false);
+        }
+
         this.movieList = movieList;
         recyclerView.setVisibility(View.VISIBLE);
         recyclerView.setAdapter(new MovieInTheatersAdapter(movieList, new OnItemClickListener<Movie>() {
@@ -116,17 +121,13 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
         GridLayoutManager lLayout = new GridLayoutManager(getActivity(), 3);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(lLayout);
-
-        if (swipe_movieintheaters.isRefreshing()) {
-            swipe_movieintheaters.setRefreshing(false);
-        }
     }
 
     @Override
     public void onRefresh() {
+        recyclerView.setVisibility(View.GONE);
         presenter.loadMoviesInTheaters(simpleFormat.format(getDataAtual()), simpleFormat.format(getProximaSemana()));
         progressBar.setVisibility(View.INVISIBLE);
-        recyclerView.setVisibility(View.GONE);
     }
 
     public Date getDataAtual() {

@@ -24,4 +24,6 @@
     <color name="white">#FFFFFF</color>
     <color name="darkblue_alpha">#922D3047</color>
 
+    <color name="transp">#20000000"</color>
+
 </resources>

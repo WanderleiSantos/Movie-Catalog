@@ -22,6 +22,7 @@ import com.wanderlei.moviecatalog.dagger.MovieInTheatersViewModule;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.presenter.MovieInTheatersPresenter;
 import com.wanderlei.moviecatalog.view.MovieInTheatersView;
+import com.wanderlei.moviecatalog.view.activity.MovieDetActicity;
 import com.wanderlei.moviecatalog.view.adapter.MovieInTheatersAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
@@ -114,7 +115,7 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
         recyclerView.setAdapter(new MovieInTheatersAdapter(movieList, new OnItemClickListener<Movie>() {
             @Override
             public void onClick(Movie movie) {
-                /////
+                startActivity(MovieDetActicity.newIntent(getActivity(), movie));
             }
         }));
 

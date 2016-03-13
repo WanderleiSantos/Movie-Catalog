@@ -95,6 +95,134 @@
         android:layout_gravity="fill_vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:id="@+id/text_view_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/lorem_ipsum_medium"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="14sp"
+                        android:text="@string/lbl_description_originaltitle"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/text_view_original_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="Deadpool"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="14sp"
+                        android:text="@string/lbl_description_runtime"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/text_view_runtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="108min"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="14sp"
+                        android:text="@string/lbl_description_country"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/text_view_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="United State"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textSize="14sp"
+                    android:text="@string/lbl_description_critics"
+                    android:textColor="@color/white"/>
+
+                <TextView
+                    android:id="@+id/text_view_critics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/lorem_ipsum_medium"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:text="@string/lbl_description_actors"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 

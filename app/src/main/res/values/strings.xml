@@ -14,6 +14,13 @@
 
     <string name="lbl_description_release">Release</string>
     <string name="lbl_description_directedby">Directed By</string>
+    <string name="lorem_ipsum_medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum efficitur lorem, sed laoreet tellus mattis iaculis. Phasellus nec mollis lacus. Integer efficitur felis vitae elit condimentum porttitor. Integer eget orci nec elit viverra mattis. Integer risus justo, aliquam nec lacinia id, vehicula quis tortor. Quisque a risus sed orci sodales semper sed et est. Vivamus eu maximus elit. Praesent justo nunc, sollicitudin in lacus ut, tempor imperdiet leo. Phasellus faucibus sed ipsum sit amet imperdiet.</string>
+    <string name="lbl_description_originaltitle">Original title</string>
+    <string name="lbl_description_runtime">Rumtime</string>
+    <string name="lbl_description_country">Country</string>
+    <string name="lbl_description_critics">Critics</string>
+    <string name="lbl_description_actors">Actors</string>
+    <string name="lorem_ipsum_pequeno">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum efficitur lorem, sed laoreet tellus mattis iaculis. Phasellus nec mollis lacus. Integer efficitur felis vitae elit condimentum porttitor.</string>
 
 
 </resources>

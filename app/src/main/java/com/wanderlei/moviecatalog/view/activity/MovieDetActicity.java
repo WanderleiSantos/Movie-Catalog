@@ -5,16 +5,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
+import com.wanderlei.moviecatalog.dagger.MovieViewModule;
+import com.wanderlei.moviecatalog.model.entity.Cast;
 import com.wanderlei.moviecatalog.model.entity.Movie;
+import com.wanderlei.moviecatalog.presenter.MoviePresenter;
+import com.wanderlei.moviecatalog.view.MovieView;
+import com.wanderlei.moviecatalog.view.adapter.ActorsAdapter;
+import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,9 +37,17 @@ import butterknife.ButterKnife;
 /**
  * Created by wanderlei on 11/03/16.
  */
-public class MovieDetActicity extends AppCompatActivity {
+public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
     private static final String INTENT_KEY_MOVIE = "intent_key_movie";
+    private ActionBar actionBar;
+
+    private Integer movieId;
+
+    private Movie mMovie;
+
+    @Inject
+    MoviePresenter presenter;
 
     @Bind(R.id.text_view_releasedate)
     TextView text_view_releasedate;
@@ -56,49 +79,29 @@ public class MovieDetActicity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    @Bind(R.id.recyclerview_actorsmovie)
+    RecyclerView  recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
         ButterKnife.bind(this);
-
-        Movie movie = getIntent().getParcelableExtra(INTENT_KEY_MOVIE);
+        ((MovieCatalogApplication) getApplication()).getObjectGraph().plus(new MovieViewModule(this)).inject(this);
 
         setSupportActionBar(toolbar);
-        final ActionBar actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(movie.getTitle());
 
-
-        if (movie.getPoster_path() != null) {
-            Picasso.with(this)
-                    .load(getString(R.string.base_url_img__logo185) + movie.getPoster_path())
-                    .placeholder(R.drawable.noimagemovie)
-                    .into(imageview_photo);
-
-            Picasso.with(this)
-                    .load(getString(R.string.base_url_img_logo500) + movie.getPoster_path())
-                    .placeholder(R.drawable.noimagemovie)
-                    .into(imageview_photoback);
-
-        } else {
-            imageview_photo.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
-            imageview_photoback.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
-        }
-
-        text_view_description.setText(movie.getOverview());
-        text_view_original_title.setText(movie.getOriginal_title());
-       // text_view_critics.setText(movie.describeContents());
-        if (movie.getRuntime() != null) {
-            text_view_runtime.setText(movie.getRuntime());
-        }
+        movieId = getIntent().getParcelableExtra(INTENT_KEY_MOVIE);
+        presenter.getMovieById(movieId);
 
 
     }
 
-    public static Intent newIntent(Context context, Movie movie) {
+    public static Intent newIntent(Context context,Integer IdMovie) {
         Intent intent = new Intent(context, MovieDetActicity.class);
-        intent.putExtra(INTENT_KEY_MOVIE, movie);
+        intent.putExtra(INTENT_KEY_MOVIE, IdMovie);
 
         return intent;
     }
@@ -112,5 +115,69 @@ public class MovieDetActicity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showLoading() {
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void closeLoading() {
+
+    }
+
+    @Override
+    public void NotLoadMovies() {
+        recyclerView.setVisibility(View.GONE);
+        Toast.makeText(this, "Erro ao carregar filme", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showCasts(List<Cast> castList) {
+        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setAdapter(new ActorsAdapter(castList, new OnItemClickListener<Cast>(){
+            @Override
+            public void onClick(Cast cast) {
+                //
+            }
+        }));
+
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+    }
+
+    @Override
+    public void showMovie(Movie movie) {
+
+        this.mMovie = movie;
+        actionBar.setTitle(mMovie.getTitle());
+
+        if (mMovie.getPoster_path() != null) {
+            Picasso.with(this)
+                    .load(getString(R.string.base_url_img__logo185) + mMovie.getPoster_path())
+                    .placeholder(R.drawable.noimagemovie)
+                    .into(imageview_photo);
+
+            Picasso.with(this)
+                    .load(getString(R.string.base_url_img_logo500) + mMovie.getPoster_path())
+                    .placeholder(R.drawable.noimagemovie)
+                    .into(imageview_photoback);
+
+        } else {
+            imageview_photo.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
+            imageview_photoback.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
+        }
+
+        text_view_description.setText(mMovie.getOverview());
+        text_view_original_title.setText(mMovie.getOriginal_title());
+        // text_view_critics.setText(movie.describeContents());
+        if (mMovie.getRuntime() != null) {
+            text_view_runtime.setText(mMovie.getRuntime());
+        }
+
+        presenter.getMovieCredits(movie.getId());
+
     }
 }

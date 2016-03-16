@@ -1,15 +1,11 @@
 package com.wanderlei.moviecatalog.view.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,7 @@ import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.dagger.MovieInTheatersViewModule;
 import com.wanderlei.moviecatalog.model.entity.Movie;
-import com.wanderlei.moviecatalog.presenter.MovieInTheatersPresenter;
+import com.wanderlei.moviecatalog.presenter.MoviePresenter;
 import com.wanderlei.moviecatalog.view.MovieInTheatersView;
 import com.wanderlei.moviecatalog.view.activity.MovieDetActicity;
 import com.wanderlei.moviecatalog.view.adapter.MovieInTheatersAdapter;
@@ -43,7 +39,7 @@ import butterknife.ButterKnife;
 public class MovieInTheatersFragment extends Fragment implements MovieInTheatersView,  SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
-    MovieInTheatersPresenter presenter;
+    MoviePresenter presenter;
 
     @Bind(R.id.progressbar)
     ProgressBar progressBar;
@@ -115,7 +111,7 @@ public class MovieInTheatersFragment extends Fragment implements MovieInTheaters
         recyclerView.setAdapter(new MovieInTheatersAdapter(movieList, new OnItemClickListener<Movie>() {
             @Override
             public void onClick(Movie movie) {
-                startActivity(MovieDetActicity.newIntent(getActivity(), movie));
+                startActivity(MovieDetActicity.newIntent(getActivity(), movie.getId()));
             }
         }));
 

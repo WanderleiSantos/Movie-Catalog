@@ -9,7 +9,7 @@ public interface AsyncService {
 
     ApiResultListner getServiceApiResultListner();
 
-    void serServiceApiResultListner(ApiResultListner apiResultListner);
+    void setServiceApiResultListner(ApiResultListner apiResultListner);
 
     void cancelAllService();
 }

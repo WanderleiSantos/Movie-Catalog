@@ -32,6 +32,16 @@ public class MovieApiImpl extends GenericApi implements MovieApi {
     }
 
     @Override
+    public void getMovieCredits(Integer id) {
+
+    }
+
+    @Override
+    public void getMovieById(Integer id) {
+
+    }
+
+    @Override
     public void cancelAllService() {
         if(movieInTheatersAsyncTask != null && movieInTheatersAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
             movieInTheatersAsyncTask.cancel(true);

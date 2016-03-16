@@ -6,4 +6,8 @@ package com.wanderlei.moviecatalog.model.api;
 public interface MovieApi extends AsyncService {
 
     void getInTheaters(String primary_release_date_gte, String primary_release_date_lte);
+
+    void getMovieCredits(Integer id);
+
+    void getMovieById(Integer id);
 }

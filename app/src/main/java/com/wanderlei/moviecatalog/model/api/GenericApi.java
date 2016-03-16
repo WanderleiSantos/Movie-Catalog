@@ -25,7 +25,7 @@ public abstract class GenericApi implements AsyncService {
         return apiResultListner;
     }
 
-    public void serServiceApiResultListner(ApiResultListner apiResultListner) {
+    public void setServiceApiResultListner(ApiResultListner apiResultListner) {
         this.apiResultListner = apiResultListner;
     }
 

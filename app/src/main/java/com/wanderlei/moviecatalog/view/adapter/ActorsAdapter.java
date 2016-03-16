@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wanderlei.moviecatalog.R;
-import com.wanderlei.moviecatalog.model.entity.Movie;
+import com.wanderlei.moviecatalog.model.entity.Cast;
 
 import java.util.List;
 
@@ -20,37 +20,38 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by wanderlei on 04/03/16.
+ * Created by wanderlei on 12/03/16.
  */
-public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheatersAdapter.ViewHolder> implements View.OnClickListener {
+public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ViewHolder> implements View.OnClickListener{
 
-    private List<Movie> movieList;
-    private OnItemClickListener<Movie> movieOnItemClickListener;
+    private List<Cast> castList;
+    private OnItemClickListener<Cast> castOnItemClickListener;
 
-    public MovieInTheatersAdapter(List<Movie> movieList, OnItemClickListener<Movie> movieOnItemClickListener) {
-        this.movieList = movieList;
-        this.movieOnItemClickListener = movieOnItemClickListener;
+
+    public ActorsAdapter(List<Cast> castList, OnItemClickListener<Cast> castOnItemClickListener) {
+        this.castList = castList;
+        this.castOnItemClickListener = castOnItemClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card_listmovies, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_card_actors, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
-        holder.itemView.setTag(movie);
-        holder.title_movie.setText(movie.getTitle());
-        if (movie.getPoster_path() != null) {
+        Cast cast = castList.get(position);
+        holder.itemView.setTag(cast);
+        holder.name_actor.setText(cast.getName());
+        if (cast.getProfile_path() != null){
             holder.progressBar.setVisibility(View.VISIBLE);
 
-            Picasso.with(holder.img_movie.getContext())
-                    .load(holder.img_movie.getContext().getString(R.string.base_url_img__logo185) + movie.getPoster_path())
+            Picasso.with(holder.img_actor.getContext())
+                    .load(holder.img_actor.getContext().getString(R.string.base_url_img__logo185) + cast.getProfile_path())
                     .placeholder(R.drawable.noimagemovie)
-                    .into(holder.img_movie, new Callback() {
+                    .into(holder.img_actor, new Callback() {
                         @Override
                         public void onSuccess() {
                             holder.progressBar.setVisibility(View.GONE);
@@ -61,30 +62,30 @@ public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheaters
                             holder.progressBar.setVisibility(View.GONE);
                         }
                     });
-        } else {
-            holder.img_movie.setImageDrawable(holder.img_movie.getContext().getResources().getDrawable(R.drawable.noimagemovie));
-        }
 
+        } else {
+            holder.img_actor.setImageDrawable(holder.img_actor.getContext().getResources().getDrawable(R.drawable.noimagemovie));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return castList.size();
     }
 
     @Override
     public void onClick(View v) {
-        Movie movie = (Movie) v.getTag();
-        movieOnItemClickListener.onClick(movie);
+        Cast cast = (Cast) v.getTag();
+        castOnItemClickListener.onClick(cast);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        @Bind(R.id.img_movie)
-        ImageView img_movie;
+        @Bind(R.id.img_actor)
+        ImageView img_actor;
 
-        @Bind(R.id.title_movie)
-        TextView title_movie;
+        @Bind(R.id.name_actor)
+        TextView name_actor;
 
         @Bind(R.id.progressbar)
         ProgressBar progressBar;

@@ -1,7 +1,7 @@
 package com.wanderlei.moviecatalog.dagger;
 
 import com.wanderlei.moviecatalog.model.api.MovieApi;
-import com.wanderlei.moviecatalog.presenter.MovieInTheatersPresenter;
+import com.wanderlei.moviecatalog.presenter.MoviePresenter;
 import com.wanderlei.moviecatalog.view.MovieInTheatersView;
 import com.wanderlei.moviecatalog.view.fragment.MovieInTheatersFragment;
 
@@ -21,7 +21,7 @@ public class MovieInTheatersViewModule {
     }
 
     @Provides
-    public MovieInTheatersPresenter provideMovieInTheatersPresenter(MovieApi movieApi){
-        return new MovieInTheatersPresenter(view, movieApi);
+    public MoviePresenter provideMovieInTheatersPresenter(MovieApi movieApi){
+        return new MoviePresenter(view, movieApi);
     }
 }

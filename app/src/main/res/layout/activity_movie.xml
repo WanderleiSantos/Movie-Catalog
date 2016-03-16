@@ -34,6 +34,7 @@
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
             android:layout_alignParentBottom="true"
+            android:background="@drawable/border_image"
             android:src="@drawable/noimagemovie" />
 
         <LinearLayout
@@ -61,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textSize="14sp"
-                android:text="@string/lbl_description_release"
                 android:textColor="@color/white"/>
 
             <TextView
@@ -79,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textSize="14sp"
-                android:text="@string/lbl_description_release"
                 android:textColor="@color/white"/>
 
 
@@ -93,6 +92,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_top"
         android:layout_gravity="fill_vertical"
+        android:layout_marginTop="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="@string/lorem_ipsum_medium"/>
+                />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -134,7 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text="Deadpool"/>
+                       />
 
                 </LinearLayout>
 
@@ -157,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text="108min"/>
+                        />
 
                 </LinearLayout>
 
@@ -180,7 +180,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text="United State"/>
+                        />
 
                 </LinearLayout>
 
@@ -206,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/lorem_ipsum_medium"/>
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -216,6 +216,16 @@
                     android:textSize="14sp"
                     android:text="@string/lbl_description_actors"
                     android:textColor="@color/white"/>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_actorsmovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_marginTop="15dp">
+
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 

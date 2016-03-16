@@ -1,11 +1,13 @@
 package com.wanderlei.moviecatalog.model.api.resources;
 
+import com.wanderlei.moviecatalog.model.entity.Cast;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -17,5 +19,11 @@ public interface MovieResource {
     Call<List<Movie>> getMovieInTheaters(@Query("api_key") String api_key,
                                          @Query("primary_release_date.gte") String primary_release_date_gte,
                                          @Query("primary_release_date.lte") String primary_release_date_lte);
+
+    @GET("movie/{id}")
+    Call<Movie> getMovieById(@Path("id") String id, @Query("api_key") String api_key);
+
+    @GET("movie/{id}/credits")
+    Call<List<Cast>> getMovieCredits(@Path("id") String id);
 
 }

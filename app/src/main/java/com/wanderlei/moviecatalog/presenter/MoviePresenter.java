@@ -54,6 +54,24 @@ public class MoviePresenter {
         api.getInTheaters(primary_release_date_gte, primary_release_date_lte);
     }
 
+    public void loadMoviesPopular(){
+        moviePopularView.showLoading();
+        api.setServiceApiResultListner(new ApiResultListner() {
+            @Override
+            public void onResult(Object object) {
+                moviePopularView.showMovies((List<Movie>) object);
+                moviePopularView.closeLoading();
+            }
+
+            @Override
+            public void onExecption(Exception exception) {
+                moviePopularView.closeLoading();
+                moviePopularView.NotLoadMovies();
+            }
+        });
+        api.getPopular();
+    }
+
     public void getMovieById(Integer id){
         movieView.showLoading();
         api.setServiceApiResultListner(new ApiResultListner() {

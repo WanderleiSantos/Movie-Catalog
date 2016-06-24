@@ -10,4 +10,6 @@ public interface MovieApi extends AsyncService {
     void getMovieCredits(Integer id);
 
     void getMovieById(Integer id);
+
+    void getPopular();
 }

@@ -19,6 +19,7 @@ import com.wanderlei.moviecatalog.dagger.MainViewModule;
 import com.wanderlei.moviecatalog.presenter.MainPresenter;
 import com.wanderlei.moviecatalog.view.MainView;
 import com.wanderlei.moviecatalog.view.fragment.MovieInTheatersFragment;
+import com.wanderlei.moviecatalog.view.fragment.MoviePopularFragment;
 
 import javax.inject.Inject;
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 case 0:
                     return new MovieInTheatersFragment();
                 case 1:
-                    return new MovieInTheatersFragment();
+                    return new MoviePopularFragment();
                 case 2:
                     return new MovieInTheatersFragment();
                 case 3:

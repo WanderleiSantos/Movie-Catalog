@@ -5,6 +5,7 @@ import com.wanderlei.moviecatalog.model.api.asynctask.ApiResultListner;
 import com.wanderlei.moviecatalog.model.entity.Cast;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.view.MovieInTheatersView;
+import com.wanderlei.moviecatalog.view.MoviePopularView;
 import com.wanderlei.moviecatalog.view.MovieView;
 
 import java.util.List;
@@ -15,11 +16,17 @@ import java.util.List;
 public class MoviePresenter {
 
     private MovieInTheatersView movieInTheatersView;
+    private MoviePopularView  moviePopularView;
     private MovieView movieView;
     private MovieApi api;
 
     public MoviePresenter(MovieInTheatersView view, MovieApi api) {
         this.movieInTheatersView = view;
+        this.api = api;
+    }
+
+    public MoviePresenter(MoviePopularView view, MovieApi api) {
+        this.moviePopularView = view;
         this.api = api;
     }
 

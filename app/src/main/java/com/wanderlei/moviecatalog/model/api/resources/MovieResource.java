@@ -26,4 +26,13 @@ public interface MovieResource {
     @GET("movie/{id}/credits")
     Call<List<Cast>> getMovieCredits(@Path("id") String id);
 
+    @GET("movie/popular")
+    Call<List<Movie>> getPopular(@Query("api_key") String apiKey, @Query("page") Integer page);
+
+    @GET("movie/upcoming")
+    Call<List<Movie>> getUpComing(@Query("api_key") String apiKey, @Query("page") Integer page);
+
+    @GET("movie/top_rated")
+    Call<List<Movie>> getTopRated(@Query("api_key") String apiKey, @Query("page") Integer page);
+
 }

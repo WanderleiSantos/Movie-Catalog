@@ -106,7 +106,7 @@ public class MoviePopularFragment extends Fragment implements MoviePopularView ,
         recyclerView.setAdapter(new MoviePopularAdapter(movieList, new OnItemClickListener<Movie>() {
             @Override
             public void onClick(Movie movie) {
-                startActivity(MovieDetActicity.newIntent(getActivity(), movie.getId()));
+                startActivity(MovieDetActicity.newIntent(getActivity(), movie));
             }
         }));
 

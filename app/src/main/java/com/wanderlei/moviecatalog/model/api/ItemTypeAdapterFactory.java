@@ -1,6 +1,7 @@
 package com.wanderlei.moviecatalog.model.api;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
@@ -10,12 +11,29 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by wanderlei on 04/03/16.
  */
 public class ItemTypeAdapterFactory implements TypeAdapterFactory {
 
+    private List<String> rootNameList = Arrays.asList("results");
+
+    public ItemTypeAdapterFactory() {
+    }
+
+    public ItemTypeAdapterFactory(String rootName) {
+        rootNameList = new ArrayList<>();
+        rootNameList.add(rootName);
+        rootNameList.add("genres");
+    }
+
+    public ItemTypeAdapterFactory(List<String> rootNameList) {
+        this.rootNameList = rootNameList;
+    }
 
     public <T> TypeAdapter<T> create(Gson gson, final TypeToken<T> type) {
 
@@ -31,23 +49,21 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
             public T read(JsonReader in) throws IOException {
 
                 JsonElement jsonElement = elementAdapter.read(in);
+                JsonElement newJsonElement = null;
                 if (jsonElement.isJsonObject()) {
-
                     JsonObject jsonObject = jsonElement.getAsJsonObject();
-
-                    if (jsonObject.has("results"))
-                    {
-                        jsonElement = jsonObject.get("results");
+                    for (int i = 0; i < rootNameList.size(); i++) {
+                        if (jsonObject.has(rootNameList.get(i))) {
+                            if(newJsonElement == null) {
+                                newJsonElement = jsonObject.get(rootNameList.get(i));
+                            } else {
+                                ((JsonArray) newJsonElement).addAll(jsonObject.getAsJsonArray(rootNameList.get(i)));
+                            }
+                        }
                     }
-
-                    if (jsonObject.has("genres"))
-                    {
-                        jsonElement = jsonObject.get("genres");
-                    }
-
                 }
 
-                return delegate.fromJsonTree(jsonElement);
+                return delegate.fromJsonTree(newJsonElement != null ? newJsonElement : jsonElement );
             }
         }.nullSafe();
     }

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.wanderlei.moviecatalog.model.api.GenericApi;
 import com.wanderlei.moviecatalog.model.api.MovieApi;
+import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieByIdAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieInTheatersAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MoviePopularAsyncTask;
 import com.wanderlei.moviecatalog.model.api.resources.MovieResource;
@@ -17,6 +18,7 @@ public class MovieApiImpl extends GenericApi implements MovieApi {
     private MovieResource movieResource;
     private MovieInTheatersAsyncTask movieInTheatersAsyncTask;
     private MoviePopularAsyncTask moviePopularAsyncTask;
+    private MovieByIdAsyncTask movieByIdAsyncTask;
 
 
     public MovieApiImpl(Context context, MovieResource movieResource) {
@@ -40,7 +42,10 @@ public class MovieApiImpl extends GenericApi implements MovieApi {
 
     @Override
     public void getMovieById(Integer id) {
-
+        verifyServiceResultListner();
+        movieByIdAsyncTask = new MovieByIdAsyncTask(getContext(), movieResource);
+        movieByIdAsyncTask.setApiResultListner(getServiceApiResultListner());
+        movieByIdAsyncTask.execute(id);
     }
 
     @Override

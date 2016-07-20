@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
@@ -87,21 +86,22 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
         ButterKnife.bind(this);
+
         ((MovieCatalogApplication) getApplication()).getObjectGraph().plus(new MovieViewModule(this)).inject(this);
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        movieId = getIntent().getParcelableExtra(INTENT_KEY_MOVIE);
-        presenter.getMovieById(movieId);
+        mMovie = getIntent().getParcelableExtra(INTENT_KEY_MOVIE);
+        presenter.getMovieById(mMovie.getId());
 
 
     }
 
-    public static Intent newIntent(Context context,Integer IdMovie) {
+    public static Intent newIntent(Context context, Movie movie) {
         Intent intent = new Intent(context, MovieDetActicity.class);
-        intent.putExtra(INTENT_KEY_MOVIE, IdMovie);
+        intent.putExtra(INTENT_KEY_MOVIE, movie);
 
         return intent;
     }
@@ -173,11 +173,11 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
         text_view_description.setText(mMovie.getOverview());
         text_view_original_title.setText(mMovie.getOriginal_title());
         // text_view_critics.setText(movie.describeContents());
-        if (mMovie.getRuntime() != null) {
-            text_view_runtime.setText(mMovie.getRuntime());
-        }
+      //  if (mMovie.getRuntime() != null) {
+    //        text_view_runtime.setText(mMovie.getRuntime());
+     //   }
 
-        presenter.getMovieCredits(movie.getId());
+      //  presenter.getMovieCredits(movie.getId());
 
     }
 }

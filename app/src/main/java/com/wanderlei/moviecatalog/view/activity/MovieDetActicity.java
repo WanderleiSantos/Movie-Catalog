@@ -95,6 +95,7 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
         mMovie = getIntent().getParcelableExtra(INTENT_KEY_MOVIE);
         presenter.getMovieById(mMovie.getId());
+        presenter.getMovieCredits(mMovie.getId());
 
 
     }

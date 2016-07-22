@@ -8,6 +8,7 @@ import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.model.api.ItemTypeAdapterFactory;
 import com.wanderlei.moviecatalog.model.api.MovieApi;
 import com.wanderlei.moviecatalog.model.api.impl.MovieApiImpl;
+import com.wanderlei.moviecatalog.model.api.resources.CastResource;
 import com.wanderlei.moviecatalog.model.api.resources.MovieResource;
 
 import dagger.Module;
@@ -38,8 +39,22 @@ public class ApiModule {
     }
 
     @Provides
+    public CastResource provideCastResource(Context context){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory("cast"))
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(context.getString(R.string.base_url))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        return retrofit.create(CastResource.class);
+    }
+
+    @Provides
     public MovieApi provideMovieApi(Context context){
-        return new MovieApiImpl(context, provideMovieResource(context));
+        return new MovieApiImpl(context, provideMovieResource(context), provideCastResource(context));
     }
 
 

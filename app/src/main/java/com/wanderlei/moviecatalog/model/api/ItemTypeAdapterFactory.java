@@ -28,7 +28,6 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
     public ItemTypeAdapterFactory(String rootName) {
         rootNameList = new ArrayList<>();
         rootNameList.add(rootName);
-        rootNameList.add("genres");
     }
 
     public ItemTypeAdapterFactory(List<String> rootNameList) {

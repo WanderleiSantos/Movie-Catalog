@@ -105,6 +105,6 @@ public class MoviePresenter {
             }
         });
 
-        api.getMovieById(id);
+        api.getMovieCredits(id);
     }
 }

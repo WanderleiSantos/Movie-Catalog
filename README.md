@@ -1,6 +1,7 @@
 # Movie-Catalog
 
- Simple Android application.
+ Simples aplicação Android que disponibiliza informações sobre lançamentos de filmes, filmes em cartaz no cinema, filmes populares.
+ 
  
  * Arquitetura MVP;
  * Gson;

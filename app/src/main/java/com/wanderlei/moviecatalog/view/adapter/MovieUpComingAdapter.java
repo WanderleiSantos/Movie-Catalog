@@ -1,6 +1,5 @@
 package com.wanderlei.moviecatalog.view.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +19,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by wanderlei on 04/03/16.
+ * Created by Wanderlei Santos on 22/07/2016.
  */
-public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheatersAdapter.ViewHolder> implements View.OnClickListener {
+public class MovieUpComingAdapter extends RecyclerView.Adapter<MovieUpComingAdapter.ViewHolder> implements View.OnClickListener {
 
     private List<Movie> movieList;
     private OnItemClickListener<Movie> movieOnItemClickListener;
 
-    public MovieInTheatersAdapter(List<Movie> movieList, OnItemClickListener<Movie> movieOnItemClickListener) {
+    public MovieUpComingAdapter(List<Movie> movieList, OnItemClickListener<Movie> movieOnItemClickListener) {
         this.movieList = movieList;
         this.movieOnItemClickListener = movieOnItemClickListener;
     }
@@ -44,6 +43,7 @@ public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheaters
         Movie movie = movieList.get(position);
         holder.itemView.setTag(movie);
         holder.title_movie.setText(movie.getTitle());
+
         if (movie.getPoster_path() != null) {
             holder.progressBar.setVisibility(View.VISIBLE);
 
@@ -64,7 +64,6 @@ public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheaters
         } else {
             holder.img_movie.setImageDrawable(holder.img_movie.getContext().getResources().getDrawable(R.drawable.noimagemovie));
         }
-
     }
 
     @Override
@@ -73,8 +72,8 @@ public class MovieInTheatersAdapter extends RecyclerView.Adapter<MovieInTheaters
     }
 
     @Override
-    public void onClick(View v) {
-        Movie movie = (Movie) v.getTag();
+    public void onClick(View view) {
+        Movie movie = (Movie) view.getTag();
         movieOnItemClickListener.onClick(movie);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by wanderlei on 07/03/16.
  */
-public interface MovieInTheatersView {
+public interface MovieNowPlayingView {
 
     void showLoading();
 

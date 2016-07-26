@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * Created by wanderlei on 07/03/16.
  */
-public class MovieInTheatersFragment extends Fragment implements MovieInTheatersView,  SwipeRefreshLayout.OnRefreshListener {
+public class MovieNowPlayingFragment extends Fragment implements MovieInTheatersView,  SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     MoviePresenter presenter;

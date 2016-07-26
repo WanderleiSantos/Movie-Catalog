@@ -14,10 +14,8 @@ import retrofit.http.Query;
  */
 public interface MovieResource {
 
-    @GET("discover/movie") // Formato da data YYYY-MM-DD
-    Call<List<Movie>> getMovieInTheaters(@Query("api_key") String api_key,
-                                         @Query("primary_release_date.gte") String primary_release_date_gte,
-                                         @Query("primary_release_date.lte") String primary_release_date_lte);
+    @GET("movie/now_playing")
+    Call<List<Movie>> getNowPlaying(@Query("api_key") String apiKey, @Query("page") Integer page);
 
     @GET("movie/{id}")
     Call<Movie> getMovieById(@Path("id") String id, @Query("api_key") String api_key);

@@ -1,15 +1,14 @@
 package com.wanderlei.moviecatalog.view.activity;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -18,8 +17,10 @@ import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.dagger.MainViewModule;
 import com.wanderlei.moviecatalog.presenter.MainPresenter;
 import com.wanderlei.moviecatalog.view.MainView;
-import com.wanderlei.moviecatalog.view.fragment.MovieInTheatersFragment;
+import com.wanderlei.moviecatalog.view.fragment.MovieGenresFragmentView;
+import com.wanderlei.moviecatalog.view.fragment.MovieNowPlayingFragment;
 import com.wanderlei.moviecatalog.view.fragment.MoviePopularFragment;
+import com.wanderlei.moviecatalog.view.fragment.MovieUpComingFragment;
 
 import javax.inject.Inject;
 
@@ -93,13 +94,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
             switch (position) {
                 default:
                 case 0:
-                    return new MovieInTheatersFragment();
+                    return new MovieNowPlayingFragment();
                 case 1:
                     return new MoviePopularFragment();
                 case 2:
-                    return new MovieInTheatersFragment();
+                    return new MovieUpComingFragment();
                 case 3:
-                    return new MovieInTheatersFragment();
+                    return new MovieGenresFragmentView();
             }
         }
 

@@ -3,9 +3,12 @@ package com.wanderlei.moviecatalog.presenter;
 import com.wanderlei.moviecatalog.model.api.MovieApi;
 import com.wanderlei.moviecatalog.model.api.asynctask.ApiResultListner;
 import com.wanderlei.moviecatalog.model.entity.Cast;
+import com.wanderlei.moviecatalog.model.entity.Genre;
 import com.wanderlei.moviecatalog.model.entity.Movie;
-import com.wanderlei.moviecatalog.view.MovieInTheatersView;
+import com.wanderlei.moviecatalog.view.MovieGenreView;
+import com.wanderlei.moviecatalog.view.MovieNowPlayingView;
 import com.wanderlei.moviecatalog.view.MoviePopularView;
+import com.wanderlei.moviecatalog.view.MovieUpComingView;
 import com.wanderlei.moviecatalog.view.MovieView;
 
 import java.util.List;
@@ -15,14 +18,20 @@ import java.util.List;
  */
 public class MoviePresenter {
 
-    private MovieInTheatersView movieInTheatersView;
+    private MovieNowPlayingView movieNowPlayingView;
     private MoviePopularView  moviePopularView;
     private MovieView movieView;
+    private MovieUpComingView movieUpComingView;
     private MovieApi api;
+    private MovieGenreView movieGenreView;
 
+    public MoviePresenter(MovieGenreView movieGenreView, MovieApi api) {
+        this.api = api;
+        this.movieGenreView = movieGenreView;
+    }
 
-    public MoviePresenter(MovieInTheatersView view, MovieApi api) {
-        this.movieInTheatersView = view;
+    public MoviePresenter(MovieNowPlayingView view, MovieApi api) {
+        this.movieNowPlayingView = view;
         this.api = api;
     }
 
@@ -31,28 +40,72 @@ public class MoviePresenter {
         this.api = api;
     }
 
+    public MoviePresenter(MovieUpComingView view, MovieApi api){
+        this.movieUpComingView = view;
+        this.api = api;
+    }
+
     public MoviePresenter(MovieView movieView, MovieApi api) {
         this.movieView = movieView;
         this.api = api;
     }
 
-    public void loadMoviesInTheaters(String primary_release_date_gte, String primary_release_date_lte){
-        movieInTheatersView.showLoading();
+    public void loadMoviesInTheaters(){
+        movieNowPlayingView.showLoading();
         api.setServiceApiResultListner(new ApiResultListner() {
             @Override
             public void onResult(Object object) {
-                movieInTheatersView.showMovies((List<Movie>) object);
-                movieInTheatersView.closeLoading();
+                movieNowPlayingView.showMovies((List<Movie>) object);
+                movieNowPlayingView.closeLoading();
             }
 
             @Override
             public void onExecption(Exception exception) {
-                movieInTheatersView.closeLoading();
-                movieInTheatersView.NotLoadMovies();
+                movieNowPlayingView.closeLoading();
+                movieNowPlayingView.NotLoadMovies();
             }
         });
 
-        api.getInTheaters(primary_release_date_gte, primary_release_date_lte);
+        api.getNowPlaying();
+    }
+
+    public void loadMoviesUpComing(){
+        movieUpComingView.showLoading();
+        api.setServiceApiResultListner(new ApiResultListner() {
+            @Override
+            public void onResult(Object object) {
+                movieUpComingView.showMovies((List<Movie>) object);
+                movieUpComingView.closeLoading();
+            }
+
+            @Override
+            public void onExecption(Exception exception) {
+                movieUpComingView.closeLoading();
+                movieUpComingView.NotLoadMovies();
+            }
+        });
+
+        api.getUpComing();
+    }
+
+
+    public void loadGenres(){
+        movieGenreView.showLoading();
+        api.setServiceApiResultListner(new ApiResultListner() {
+            @Override
+            public void onResult(Object object) {
+                movieGenreView.showGenres((List<Genre>) object);
+                movieGenreView.closeLoading();
+            }
+
+            @Override
+            public void onExecption(Exception exception) {
+                movieGenreView.closeLoading();
+                movieGenreView.NotLoadGenres();
+            }
+        });
+
+        api.getGenres();
     }
 
     public void loadMoviesPopular(){

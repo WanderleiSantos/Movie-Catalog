@@ -2,8 +2,8 @@ package com.wanderlei.moviecatalog.dagger;
 
 import com.wanderlei.moviecatalog.model.api.MovieApi;
 import com.wanderlei.moviecatalog.presenter.MoviePresenter;
-import com.wanderlei.moviecatalog.view.MovieInTheatersView;
-import com.wanderlei.moviecatalog.view.fragment.MovieInTheatersFragment;
+import com.wanderlei.moviecatalog.view.MovieNowPlayingView;
+import com.wanderlei.moviecatalog.view.fragment.MovieNowPlayingFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,12 +11,12 @@ import dagger.Provides;
 /**
  * Created by wanderlei on 07/03/16.
  */
-@Module(injects = MovieInTheatersFragment.class, includes = {AppModule.class, ApiModule.class}, library = true)
-public class MovieInTheatersViewModule {
+@Module(injects = MovieNowPlayingFragment.class, includes = {AppModule.class, ApiModule.class}, library = true)
+public class MovieNowPlayingViewModule {
 
-    private MovieInTheatersView view;
+    private MovieNowPlayingView view;
 
-    public MovieInTheatersViewModule(MovieInTheatersView view) {
+    public MovieNowPlayingViewModule(MovieNowPlayingView view) {
         this.view = view;
     }
 

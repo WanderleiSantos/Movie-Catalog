@@ -88,7 +88,6 @@ public class MoviePresenter {
         api.getUpComing();
     }
 
-
     public void loadGenres(){
         movieGenreView.showLoading();
         api.setServiceApiResultListner(new ApiResultListner() {
@@ -154,10 +153,8 @@ public class MoviePresenter {
 
             @Override
             public void onExecption(Exception exception) {
-
             }
         });
-
         api.getMovieCredits(id);
     }
 }

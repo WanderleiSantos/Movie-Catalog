@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--
-    <color name="primary">#FF5722</color>
-    <color name="primary_dark">#E64A19</color>
-    <color name="primary_light">#FFCCBC</color>
-    <color name="accent">#607D8B</color>
+
+
+
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
+    <color name="primary_light">#C5CAE9</color>
+    <color name="accent">#FF5722</color>
     <color name="primary_text">#212121</color>
-    <color name="secondary_text">#727272</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
-    -->
-    <color name="primary">#212121</color>
-    <color name="primary_dark">#000000</color>
-    <color name="primary_light">#F5F5F5</color>
-    <color name="accent">#00BCD4</color>
-    <color name="primary_text">#FFFFFF</color>
     <color name="secondary_text">#727272</color>
     <color name="icons">#212121</color>
     <color name="divider">#B6B6B6</color>
+    <color name="genre">#EF6C00</color>
 
     <color name="backgroud">#303030</color>
     <color name="background_cards">#424242</color>
     <color name="white">#FFFFFF</color>
-    <color name="darkblue_alpha">#922D3047</color>
+    <color name="darkblue_alpha">#991D3047</color>
 
     <color name="transp">#40000000</color>
+
+    <color name="color_state_pressed">#660099</color>
+    <color name="color_state_normal">#6633CC</color>
+
+    <color name="light_blue">#ff64c2f4</color>
+    <color name="blue">#ff1ca8f4</color>
+    <color name="dark_blue">#0288D1</color>
 
 </resources>

@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroud">
+    android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/layout_top"
@@ -103,10 +103,19 @@
             android:layout_marginRight="5dp">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/lbl_description"
+                android:textColor="@color/primary_text"/>
+
+            <TextView
                 android:id="@+id/text_view_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/secondary_text"
                 />
 
             <LinearLayout
@@ -126,14 +135,15 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         android:text="@string/lbl_description_originaltitle"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/text_view_original_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/secondary_text"
                        />
 
                 </LinearLayout>
@@ -149,14 +159,15 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         android:text="@string/lbl_description_runtime"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/text_view_runtime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/secondary_text"
                         />
 
                 </LinearLayout>
@@ -172,14 +183,15 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         android:text="@string/lbl_description_country"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/primary_text"/>
 
                     <TextView
                         android:id="@+id/text_view_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/secondary_text"
                         />
 
                 </LinearLayout>
@@ -198,14 +210,15 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     android:text="@string/lbl_description_critics"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/primary_text"/>
 
                 <TextView
                     android:id="@+id/text_view_critics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/secondary_text"
                    />
 
                 <TextView
@@ -214,8 +227,9 @@
                     android:fontFamily="sans-serif-light"
                     android:layout_marginTop="15dp"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     android:text="@string/lbl_description_actors"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/primary_text"/>
 
 
                 <android.support.v7.widget.RecyclerView
@@ -237,6 +251,6 @@
     </android.support.v4.widget.NestedScrollView>
 
     <include android:id="@+id/toolbar"
-        layout="@layout/app_bar_transparent"/>
+        layout="@layout/app_bar"/>
 
 </RelativeLayout>

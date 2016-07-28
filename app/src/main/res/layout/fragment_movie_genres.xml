@@ -3,18 +3,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroud">
+    android:background="@color/white"
+    android:paddingTop="16dp">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview_categorias"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
-    </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_categorias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"/>
+
 
     <ProgressBar
         android:id="@+id/progressbar"

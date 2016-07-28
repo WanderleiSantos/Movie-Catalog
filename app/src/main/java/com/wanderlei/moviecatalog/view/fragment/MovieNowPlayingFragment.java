@@ -14,18 +14,15 @@ import android.widget.Toast;
 
 import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
-import com.wanderlei.moviecatalog.dagger.MovieInTheatersViewModule;
+import com.wanderlei.moviecatalog.dagger.MovieNowPlayingViewModule;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.presenter.MoviePresenter;
-import com.wanderlei.moviecatalog.view.MovieInTheatersView;
+import com.wanderlei.moviecatalog.view.MovieNowPlayingView;
 import com.wanderlei.moviecatalog.view.activity.MovieDetActicity;
-import com.wanderlei.moviecatalog.view.adapter.MovieInTheatersAdapter;
+import com.wanderlei.moviecatalog.view.adapter.MovieNowPlayingAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -36,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * Created by wanderlei on 07/03/16.
  */
-public class MovieNowPlayingFragment extends Fragment implements MovieInTheatersView,  SwipeRefreshLayout.OnRefreshListener {
+public class MovieNowPlayingFragment extends Fragment implements MovieNowPlayingView,  SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     MoviePresenter presenter;
@@ -51,16 +48,15 @@ public class MovieNowPlayingFragment extends Fragment implements MovieInTheaters
     SwipeRefreshLayout swipe_movieintheaters;
 
     private final String BUNDLE_KEY_MOVIELIST = "bundle_key_movielist";
-    private final SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
     private List<Movie> movieList;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_movie_intheaters, container, false);
+        View view = inflater.inflate(R.layout.fragment_movie_nowplaying, container, false);
         ButterKnife.bind(this, view);
-        ((MovieCatalogApplication) getActivity().getApplication()).getObjectGraph().plus(new MovieInTheatersViewModule(this)).inject(this);
+        ((MovieCatalogApplication) getActivity().getApplication()).getObjectGraph().plus(new MovieNowPlayingViewModule(this)).inject(this);
 
         swipe_movieintheaters.setOnRefreshListener(this);
 
@@ -68,7 +64,7 @@ public class MovieNowPlayingFragment extends Fragment implements MovieInTheaters
             movieList = savedInstanceState.getParcelableArrayList(BUNDLE_KEY_MOVIELIST);
             showMovies(movieList);
         } else {
-            presenter.loadMoviesInTheaters(simpleFormat.format(getDataAtual()), simpleFormat.format(getProximaSemana()));
+            presenter.loadMoviesInTheaters();
         }
 
         return view;
@@ -108,7 +104,7 @@ public class MovieNowPlayingFragment extends Fragment implements MovieInTheaters
 
         this.movieList = movieList;
         recyclerView.setVisibility(View.VISIBLE);
-        recyclerView.setAdapter(new MovieInTheatersAdapter(movieList, new OnItemClickListener<Movie>() {
+        recyclerView.setAdapter(new MovieNowPlayingAdapter(movieList, new OnItemClickListener<Movie>() {
             @Override
             public void onClick(Movie movie) {
                 startActivity(MovieDetActicity.newIntent(getActivity(), movie));
@@ -123,23 +119,7 @@ public class MovieNowPlayingFragment extends Fragment implements MovieInTheaters
     @Override
     public void onRefresh() {
         recyclerView.setVisibility(View.GONE);
-        presenter.loadMoviesInTheaters(simpleFormat.format(getDataAtual()), simpleFormat.format(getProximaSemana()));
+        presenter.loadMoviesInTheaters();
         progressBar.setVisibility(View.INVISIBLE);
-    }
-
-    public Date getDataAtual() {
-        Calendar calendar = Calendar.getInstance();
-        Date date = new Date();
-        calendar.setTime(date);
-        return calendar.getTime();
-    }
-
-    public Date getProximaSemana(){
-        Calendar calendar = Calendar.getInstance();
-        int ano = calendar.get(Calendar.YEAR);
-        int mes = calendar.get(Calendar.MONTH);
-        int dia = calendar.get(Calendar.DAY_OF_MONTH) + 7;
-        calendar.set(ano, mes, dia);
-        return calendar.getTime();
     }
 }

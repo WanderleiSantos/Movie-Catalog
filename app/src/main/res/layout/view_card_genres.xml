@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view_genres"
-    android:orientation="vertical"
-    android:layout_width="105dp"
-    android:layout_height="120dp"
-    android:layout_marginBottom="16dp"
-    android:background="@color/genre">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_row">
+
+    <TextView
+        android:id="@+id/text_view_abv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/selector_circular_textview"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/text_view_categoria"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:gravity="center"
         android:textSize="16sp"
-        android:textColor="@color/white"/>
+        android:gravity="center_vertical"
+        android:paddingLeft="8dp"
+        android:textColor="@color/primary_text"/>
 
 </LinearLayout>

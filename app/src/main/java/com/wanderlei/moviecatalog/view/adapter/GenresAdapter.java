@@ -39,6 +39,7 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
         Genre genre = genreList.get(position);
         holder.itemView.setTag(genre);
         holder.textViewCategoria.setText(genre.getName());
+        holder.getTextViewAbv.setText(genre.getName().substring(0, 2));
     }
 
     @Override
@@ -57,6 +58,9 @@ public class GenresAdapter extends RecyclerView.Adapter<GenresAdapter.ViewHolder
 
         @Bind(R.id.text_view_categoria)
         TextView textViewCategoria;
+
+        @Bind(R.id.text_view_abv)
+        TextView getTextViewAbv;
 
         public ViewHolder(View itemView) {
             super(itemView);

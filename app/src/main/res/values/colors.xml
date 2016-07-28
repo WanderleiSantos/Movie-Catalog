@@ -20,4 +20,11 @@
 
     <color name="transp">#40000000</color>
 
+    <color name="color_state_pressed">#660099</color>
+    <color name="color_state_normal">#6633CC</color>
+
+    <color name="light_blue">#ff64c2f4</color>
+    <color name="blue">#ff1ca8f4</color>
+    <color name="dark_blue">#0288D1</color>
+
 </resources>

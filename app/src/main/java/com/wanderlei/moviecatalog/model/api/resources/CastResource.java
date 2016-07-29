@@ -1,6 +1,7 @@
 package com.wanderlei.moviecatalog.model.api.resources;
 
 import com.wanderlei.moviecatalog.model.entity.Cast;
+import com.wanderlei.moviecatalog.model.entity.Person;
 
 import java.util.List;
 
@@ -16,5 +17,9 @@ public interface CastResource {
 
     @GET("movie/{id}/credits")
     Call<List<Cast>> getMovieCredits(@Path("id") String id, @Query("api_key") String apiKey);
+
+    @GET("person/{id}")
+    Call<Person> getPersonById(@Path("id") Long id, @Query("api_key") String apiKey);
+
 
 }

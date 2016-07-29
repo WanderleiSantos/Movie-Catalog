@@ -39,10 +39,8 @@ import butterknife.ButterKnife;
 public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
     private static final String INTENT_KEY_MOVIE = "intent_key_movie";
+
     private ActionBar actionBar;
-
-    private Integer movieId;
-
     private Movie mMovie;
 
     @Inject
@@ -140,7 +138,7 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
         recyclerView.setAdapter(new ActorsAdapter(castList, new OnItemClickListener<Cast>(){
             @Override
             public void onClick(Cast cast) {
-                //
+                startActivity(PersonActivity.newIntent(MovieDetActicity.this, cast));
             }
         }));
 

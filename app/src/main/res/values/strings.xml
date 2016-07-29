@@ -22,6 +22,9 @@
     <string name="lbl_description_actors">Actors</string>
     <string name="lorem_ipsum_pequeno">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum efficitur lorem, sed laoreet tellus mattis iaculis. Phasellus nec mollis lacus. Integer efficitur felis vitae elit condimentum porttitor.</string>
     <string name="lbl_description">Overview</string>
+    <string name="text_view_desc_age">Age</string>
+    <string name="text_view_desc_born">Born</string>
+    <string name="lbl_description_as_actor">As Actor</string>
 
 
 </resources>

@@ -7,4 +7,6 @@ public interface PersonApi extends AsyncService {
 
     void findById(Long id);
 
+    void findMovies(Long id);
+
 }

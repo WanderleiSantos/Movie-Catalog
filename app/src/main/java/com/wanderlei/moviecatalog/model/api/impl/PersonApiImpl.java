@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.wanderlei.moviecatalog.model.api.GenericApi;
 import com.wanderlei.moviecatalog.model.api.PersonApi;
+import com.wanderlei.moviecatalog.model.api.asynctask.impl.MoviesByPersonIdAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.PersonAsyncTask;
 import com.wanderlei.moviecatalog.model.api.resources.CastResource;
 
@@ -15,6 +16,7 @@ public class PersonApiImpl  extends GenericApi implements PersonApi {
 
     private CastResource castResource;
     private PersonAsyncTask personAsyncTask;
+    private MoviesByPersonIdAsyncTask moviesByPersonIdAsyncTask;
 
     public PersonApiImpl(Context context, CastResource castResource) {
         super(context);
@@ -27,6 +29,14 @@ public class PersonApiImpl  extends GenericApi implements PersonApi {
         personAsyncTask = new PersonAsyncTask(getContext(), castResource);
         personAsyncTask.setApiResultListner(getServiceApiResultListner());
         personAsyncTask.execute(id);
+    }
+
+    @Override
+    public void findMovies(Long id) {
+        verifyServiceResultListner();
+        moviesByPersonIdAsyncTask = new MoviesByPersonIdAsyncTask(getContext(), castResource);
+        moviesByPersonIdAsyncTask.setApiResultListner(getServiceApiResultListner());
+        moviesByPersonIdAsyncTask.execute(id);
     }
 
     @Override

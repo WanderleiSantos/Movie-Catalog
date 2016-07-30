@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +21,15 @@ import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.dagger.PersonViewModule;
 import com.wanderlei.moviecatalog.model.entity.Cast;
+import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.model.entity.Person;
 import com.wanderlei.moviecatalog.presenter.PersonPresenter;
 import com.wanderlei.moviecatalog.view.PersonView;
+import com.wanderlei.moviecatalog.view.adapter.MoviesAdapter;
+import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -78,6 +84,7 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
         mCast = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
         mPersonPresenter.getPersonById( mCast.getId().longValue());
+        mPersonPresenter.getMovies(mCast.getId().longValue());
 
     }
 
@@ -134,6 +141,19 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
             mImageView.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
         }
 
+    }
 
+    @Override
+    public void showMovies(List<Movie> movieList) {
+        mRecyclerViewActor.setVisibility(View.VISIBLE);
+        mRecyclerViewActor.setAdapter(new MoviesAdapter(movieList, new OnItemClickListener<Movie>(){
+            @Override
+            public void onClick(Movie movie) {
+                startActivity(MovieDetActicity.newIntent(PersonActivity.this, movie));
+            }
+        }));
+
+        mRecyclerViewActor.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+        mRecyclerViewActor.setItemAnimator(new DefaultItemAnimator());
     }
 }

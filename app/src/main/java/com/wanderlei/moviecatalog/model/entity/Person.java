@@ -28,7 +28,6 @@ public class Person implements Parcelable {
 
     private Date deathday;
 
-
     public Long getId() {
         return id;
     }
@@ -85,9 +84,6 @@ public class Person implements Parcelable {
         this.deathday = deathday;
     }
 
-    public static Creator<Person> getCREATOR() {
-        return CREATOR;
-    }
 
     @Override
     public int describeContents() {

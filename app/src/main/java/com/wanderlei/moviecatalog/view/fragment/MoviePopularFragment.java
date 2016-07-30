@@ -38,7 +38,6 @@ public class MoviePopularFragment extends Fragment implements MoviePopularView ,
     @Inject
     MoviePresenter presenter;
 
-
     @Bind(R.id.progressbar)
     ProgressBar progressBar;
 

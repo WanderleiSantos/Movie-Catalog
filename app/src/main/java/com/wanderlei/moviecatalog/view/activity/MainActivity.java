@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         viewPager.setAdapter(new PagerAdapter());
         tabLayout.setupWithViewPager(viewPager);
 
-
     }
 
     @Override

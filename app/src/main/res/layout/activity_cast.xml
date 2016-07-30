@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <include
-        android:id="@+id/toolbal"
+        android:id="@+id/toolbar"
         layout="@layout/app_bar"/>
 
     <ScrollView
@@ -26,8 +26,8 @@
 
                 <ImageView
                     android:id="@+id/imageview_photo"
-                    android:layout_width="100dp"
-                    android:layout_height="115dp"
+                    android:layout_width="135dp"
+                    android:layout_height="165dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/border_image"

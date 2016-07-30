@@ -7,10 +7,15 @@ import com.google.gson.GsonBuilder;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.model.api.ItemTypeAdapterFactory;
 import com.wanderlei.moviecatalog.model.api.MovieApi;
+import com.wanderlei.moviecatalog.model.api.PersonApi;
 import com.wanderlei.moviecatalog.model.api.impl.MovieApiImpl;
+import com.wanderlei.moviecatalog.model.api.impl.PersonApiImpl;
 import com.wanderlei.moviecatalog.model.api.resources.CastResource;
 import com.wanderlei.moviecatalog.model.api.resources.GenreResource;
 import com.wanderlei.moviecatalog.model.api.resources.MovieResource;
+import com.wanderlei.moviecatalog.util.JsonDateDeserializer;
+
+import java.util.Date;
 
 import dagger.Module;
 import dagger.Provides;
@@ -43,6 +48,7 @@ public class ApiModule {
     public CastResource provideCastResource(Context context){
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory("cast"))
+                .registerTypeAdapter(Date.class, new JsonDateDeserializer())
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -57,6 +63,7 @@ public class ApiModule {
     public GenreResource provideGenreResource(Context context){
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory("genres"))
+                .setDateFormat("yyyy-MM-dd")
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -67,9 +74,15 @@ public class ApiModule {
         return retrofit.create(GenreResource.class);
     }
 
+
     @Provides
     public MovieApi provideMovieApi(Context context){
         return new MovieApiImpl(context, provideMovieResource(context), provideCastResource(context), provideGenreResource(context));
+    }
+
+    @Provides
+    public PersonApi provideApi(Context context){
+        return new PersonApiImpl(context, provideCastResource(context));
     }
 
 

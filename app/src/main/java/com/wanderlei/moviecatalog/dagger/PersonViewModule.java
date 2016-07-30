@@ -1,9 +1,9 @@
 package com.wanderlei.moviecatalog.dagger;
 
 import com.wanderlei.moviecatalog.model.api.PersonApi;
-import com.wanderlei.moviecatalog.model.entity.Person;
 import com.wanderlei.moviecatalog.presenter.PersonPresenter;
 import com.wanderlei.moviecatalog.view.PersonView;
+import com.wanderlei.moviecatalog.view.activity.PersonActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,7 +11,7 @@ import dagger.Provides;
 /**
  * Created by Wanderlei Santos on 28/07/2016.
  */
-@Module(injects = Person.class, library = true, includes = {AppModule.class, ApiModule.class})
+@Module(injects = PersonActivity.class, includes = {AppModule.class, ApiModule.class}, library = true)
 public class PersonViewModule {
 
     private PersonView personView;

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.dagger.PersonViewModule;
@@ -38,7 +39,9 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
     private static final String BUNDLE_KEY_PERSON = "bundle_key_person";
 
     private Person mPerson;
+    private Cast mCast;
     private ActionBar mActionBar;
+    private Long mId;
 
     @Inject
     PersonPresenter mPersonPresenter;
@@ -71,7 +74,10 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
         setSupportActionBar(mToolbar);
         mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+
+        mCast = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
+        mPersonPresenter.getPersonById( mCast.getId().longValue());
 
     }
 
@@ -117,6 +123,16 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
         mTextViewAge.setText(simpleDateFormat.format(mPerson.getBirthday()));
         mTextViewBorn.setText(mPerson.getPlaceOfBirth());
         mTextViewDesc.setText(mPerson.getBiography());
+
+        if (mPerson.getProfilePath() != null) {
+            Picasso.with(this)
+                    .load(getString(R.string.base_url_img_logo500) + mPerson.getProfilePath())
+                    .placeholder(R.drawable.noimagemovie)
+                    .into(mImageView);
+
+        } else {
+            mImageView.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
+        }
 
 
     }

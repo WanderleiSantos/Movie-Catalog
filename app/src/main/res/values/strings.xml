@@ -25,6 +25,7 @@
     <string name="text_view_desc_age">Birthday</string>
     <string name="text_view_desc_born">Born</string>
     <string name="lbl_description_as_actor">As Actor</string>
+    <string name="lbl_description_galery">Galery</string>
 
 
 </resources>

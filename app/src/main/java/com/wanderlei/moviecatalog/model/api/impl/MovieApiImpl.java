@@ -8,6 +8,7 @@ import com.wanderlei.moviecatalog.model.api.MovieApi;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.GenreAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieByIdAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieCreditsAsyncTask;
+import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieListAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieNowPlayingAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MoviePopularAsyncTask;
 import com.wanderlei.moviecatalog.model.api.asynctask.impl.MovieUpComingAsyncTask;
@@ -29,6 +30,7 @@ public class MovieApiImpl extends GenericApi implements MovieApi {
     private MovieCreditsAsyncTask movieCreditsAsyncTask;
     private MovieUpComingAsyncTask movieUpComingAsyncTask;
     private GenreAsyncTask genreAsyncTask;
+    private MovieListAsyncTask movieListAsyncTask;
 
     public MovieApiImpl(Context context, MovieResource movieResource, CastResource castResource, GenreResource genreResource) {
         super(context);
@@ -84,6 +86,14 @@ public class MovieApiImpl extends GenericApi implements MovieApi {
         genreAsyncTask = new GenreAsyncTask(getContext(), genreResource);
         genreAsyncTask.setApiResultListner(getServiceApiResultListner());
         genreAsyncTask.execute();
+    }
+
+    @Override
+    public void getListMovieByGenre(Long id) {
+        verifyServiceResultListner();
+        movieListAsyncTask = new MovieListAsyncTask(getContext(), movieResource);
+        movieListAsyncTask.setApiResultListner(getServiceApiResultListner());
+        movieListAsyncTask.execute(id);
     }
 
     @Override

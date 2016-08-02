@@ -17,6 +17,7 @@ import com.wanderlei.moviecatalog.dagger.MovieGenreViewModule;
 import com.wanderlei.moviecatalog.model.entity.Genre;
 import com.wanderlei.moviecatalog.presenter.MoviePresenter;
 import com.wanderlei.moviecatalog.view.MovieGenreView;
+import com.wanderlei.moviecatalog.view.activity.MovieListActivity;
 import com.wanderlei.moviecatalog.view.adapter.GenresAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
@@ -97,8 +98,7 @@ public class MovieGenresFragmentView extends Fragment implements MovieGenreView 
         recyclerView.setAdapter(new GenresAdapter(genreList, new OnItemClickListener<Genre>() {
             @Override
             public void onClick(Genre genre) {
-               // startActivity(MovieDetActicity.newIntent(getActivity(), genre));
-                //Item
+                startActivity(MovieListActivity.newIntent(getActivity(), genre));
             }
         }));
 

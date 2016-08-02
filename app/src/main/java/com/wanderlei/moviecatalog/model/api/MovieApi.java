@@ -17,4 +17,6 @@ public interface MovieApi extends AsyncService {
 
     void getGenres();
 
+    void getListMovieByGenre(Long id);
+
 }

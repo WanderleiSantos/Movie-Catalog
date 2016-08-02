@@ -29,4 +29,7 @@ public interface MovieResource {
     @GET("movie/top_rated")
     Call<List<Movie>> getTopRated(@Query("api_key") String apiKey, @Query("page") Integer page);
 
+    @GET("genre/{id}/movies")
+    Call<List<Movie>> getMovieListByGenre(@Path("id") Long genreId, @Query("api_key") String apiKey, @Query("page") Integer page);
+
 }

@@ -56,7 +56,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="4dp"
-                        android:text="11/12/1192"
                         android:textColor="@color/secondary_text"
                         />
 
@@ -75,7 +74,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="4dp"
-                        android:text="Calofornia, USA"
                         android:textColor="@color/secondary_text"
                         />
 
@@ -93,7 +91,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
-                    android:text="Interprete do filme batamam vs supermam blablab shshs hshs"
                     android:textColor="@color/secondary_text"
                     />
 

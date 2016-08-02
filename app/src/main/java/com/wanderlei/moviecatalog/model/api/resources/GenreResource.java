@@ -1,11 +1,13 @@
 package com.wanderlei.moviecatalog.model.api.resources;
 
 import com.wanderlei.moviecatalog.model.entity.Genre;
+import com.wanderlei.moviecatalog.model.entity.Movie;
 
 import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -15,4 +17,6 @@ public interface GenreResource {
 
     @GET("genre/movie/list")
     Call<List<Genre>> getGenres(@Query("api_key") String apiKey);
+
+
 }

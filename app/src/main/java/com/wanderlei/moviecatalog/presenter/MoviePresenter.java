@@ -6,6 +6,7 @@ import com.wanderlei.moviecatalog.model.entity.Cast;
 import com.wanderlei.moviecatalog.model.entity.Genre;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.view.MovieGenreView;
+import com.wanderlei.moviecatalog.view.MovieListView;
 import com.wanderlei.moviecatalog.view.MovieNowPlayingView;
 import com.wanderlei.moviecatalog.view.MoviePopularView;
 import com.wanderlei.moviecatalog.view.MovieUpComingView;
@@ -24,6 +25,12 @@ public class MoviePresenter {
     private MovieUpComingView movieUpComingView;
     private MovieApi api;
     private MovieGenreView movieGenreView;
+    private MovieListView movieListView;
+
+    public MoviePresenter( MovieListView movieListView, MovieApi api) {
+        this.api = api;
+        this.movieListView = movieListView;
+    }
 
     public MoviePresenter(MovieGenreView movieGenreView, MovieApi api) {
         this.api = api;
@@ -156,5 +163,23 @@ public class MoviePresenter {
             }
         });
         api.getMovieCredits(id);
+    }
+
+    public void getListMovieByGenre(Long id){
+        movieListView.showLoading();
+        api.setServiceApiResultListner(new ApiResultListner() {
+            @Override
+            public void onResult(Object object) {
+                movieListView.showMovies((List<Movie>) object);
+                movieListView.closeLoading();
+            }
+
+            @Override
+            public void onExecption(Exception exception) {
+                movieListView.closeLoading();
+                movieListView.NotLoadMovies();
+            }
+        });
+        api.getListMovieByGenre(id);
     }
 }

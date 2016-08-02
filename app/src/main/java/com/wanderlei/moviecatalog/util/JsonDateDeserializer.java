@@ -16,16 +16,19 @@ import java.util.Locale;
  */
 public class JsonDateDeserializer implements JsonDeserializer<Date> {
 
+    public static final SimpleDateFormat sServerDateDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
     @Override
     public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        if (!json.toString().equals("")) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy'-'MM'-'dd", Locale.getDefault());
+        if (json != null) {
+            final String jsonString = json.getAsString();
             try {
-                return simpleDateFormat.parse(json.toString().replace("\"", ""));
+                return (Date) sServerDateDateFormat.parse(jsonString);
             } catch (ParseException e) {
-                return null;
+                e.printStackTrace();
             }
         }
         return null;
     }
+
 }

@@ -1,5 +1,6 @@
 package com.wanderlei.moviecatalog.view;
 
+import com.wanderlei.moviecatalog.model.entity.Image;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.model.entity.Person;
 
@@ -19,4 +20,7 @@ public interface PersonView {
     void showPerson(Person person);
 
     void showMovies(List<Movie> movieList);
+
+    void showImages(List<Image> imageList);
+
 }

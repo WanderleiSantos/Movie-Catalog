@@ -12,9 +12,11 @@ import com.wanderlei.moviecatalog.model.api.impl.MovieApiImpl;
 import com.wanderlei.moviecatalog.model.api.impl.PersonApiImpl;
 import com.wanderlei.moviecatalog.model.api.resources.CastResource;
 import com.wanderlei.moviecatalog.model.api.resources.GenreResource;
+import com.wanderlei.moviecatalog.model.api.resources.ImageResource;
 import com.wanderlei.moviecatalog.model.api.resources.MovieResource;
 import com.wanderlei.moviecatalog.util.JsonDateDeserializer;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import dagger.Module;
@@ -74,6 +76,21 @@ public class ApiModule {
         return retrofit.create(GenreResource.class);
     }
 
+    @Provides
+    public ImageResource provideImageResource(Context context){
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new ItemTypeAdapterFactory(Arrays.asList("backdrops", "posters", "profiles")))
+                .registerTypeAdapter(Date.class, new JsonDateDeserializer())
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(context.getString(R.string.base_url))
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        return retrofit.create(ImageResource.class);
+    }
+
 
     @Provides
     public MovieApi provideMovieApi(Context context){
@@ -82,7 +99,7 @@ public class ApiModule {
 
     @Provides
     public PersonApi provideApi(Context context){
-        return new PersonApiImpl(context, provideCastResource(context));
+        return new PersonApiImpl(context, provideCastResource(context), provideImageResource(context));
     }
 
 

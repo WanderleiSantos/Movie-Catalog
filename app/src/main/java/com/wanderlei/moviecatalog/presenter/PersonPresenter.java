@@ -2,6 +2,7 @@ package com.wanderlei.moviecatalog.presenter;
 
 import com.wanderlei.moviecatalog.model.api.PersonApi;
 import com.wanderlei.moviecatalog.model.api.asynctask.ApiResultListner;
+import com.wanderlei.moviecatalog.model.entity.Image;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.model.entity.Person;
 import com.wanderlei.moviecatalog.view.PersonView;
@@ -57,5 +58,21 @@ public class PersonPresenter {
         });
 
         api.findMovies(id);
+    }
+
+    public void getGalery(Long id){
+        api.setServiceApiResultListner(new ApiResultListner() {
+            @Override
+            public void onResult(Object object) {
+                personView.showImages((List<Image>) object);
+            }
+
+            @Override
+            public void onExecption(Exception exception) {
+
+            }
+        });
+
+        api.findGalery(id);
     }
 }

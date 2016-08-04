@@ -21,10 +21,12 @@ import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.dagger.PersonViewModule;
 import com.wanderlei.moviecatalog.model.entity.Cast;
+import com.wanderlei.moviecatalog.model.entity.Image;
 import com.wanderlei.moviecatalog.model.entity.Movie;
 import com.wanderlei.moviecatalog.model.entity.Person;
 import com.wanderlei.moviecatalog.presenter.PersonPresenter;
 import com.wanderlei.moviecatalog.view.PersonView;
+import com.wanderlei.moviecatalog.view.adapter.ImageAdapter;
 import com.wanderlei.moviecatalog.view.adapter.MoviesAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
@@ -70,6 +72,9 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
+    @Bind(R.id.recyclerview_galery)
+    RecyclerView mRecyclerViewGalery;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +90,7 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
         mCast = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
         mPersonPresenter.getPersonById( mCast.getId().longValue());
         mPersonPresenter.getMovies(mCast.getId().longValue());
+        mPersonPresenter.getGalery(mCast.getId().longValue());
 
     }
 
@@ -155,5 +161,19 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
         mRecyclerViewActor.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
         mRecyclerViewActor.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    @Override
+    public void showImages(List<Image> imageList) {
+        mRecyclerViewGalery.setVisibility(View.VISIBLE);
+        mRecyclerViewGalery.setAdapter(new ImageAdapter(imageList, new OnItemClickListener<Image>() {
+            @Override
+            public void onClick(Image image) {
+                //
+            }
+        }));
+
+        mRecyclerViewGalery.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+        mRecyclerViewGalery.setItemAnimator(new DefaultItemAnimator());
     }
 }

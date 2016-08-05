@@ -6,4 +6,4 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transp"
-    app:theme="@style/CustomActionBar"/>
+    app:theme="@style/AppTheme"/>

@@ -87,11 +87,24 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
-        mCast = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
+        if (mCast == null && savedInstanceState != null){
+            mCast = savedInstanceState.getParcelable(BUNDLE_KEY_PERSON);
+        } else {
+            mCast = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
+        }
+
         mPersonPresenter.getPersonById( mCast.getId().longValue());
         mPersonPresenter.getMovies(mCast.getId().longValue());
         mPersonPresenter.getGalery(mCast.getId().longValue());
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (mCast != null) {
+            outState.putParcelable(BUNDLE_KEY_PERSON, mCast);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     public static Intent newIntent(Context context, Cast cast){
@@ -169,7 +182,7 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
         mRecyclerViewGalery.setAdapter(new ImageAdapter(imageList, new OnItemClickListener<Image>() {
             @Override
             public void onClick(Image image) {
-                //
+                startActivity(FullImageActivity.newIntent(PersonActivity.this, image, mPerson));
             }
         }));
 

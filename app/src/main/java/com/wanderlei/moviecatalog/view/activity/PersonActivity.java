@@ -13,9 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
@@ -77,6 +79,9 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
     @Bind(R.id.recyclerview_galery)
     RecyclerView mRecyclerViewGalery;
+
+    @Bind(R.id.progressbar)
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,6 +151,8 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
     @Override
     public void showPerson(Person person) {
+        mProgressBar.setVisibility(View.VISIBLE);
+
         this.mPerson = person;
         mActionBar.setTitle(mPerson.getName());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
@@ -157,7 +164,17 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
             Picasso.with(this)
                     .load(getString(R.string.base_url_img_logo500) + mPerson.getProfilePath())
                     .placeholder(R.drawable.noimagemovie)
-                    .into(mImageView);
+                    .into(mImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            mProgressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            mProgressBar.setVisibility(View.GONE);
+                        }
+                    });
 
         } else {
             mImageView.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));

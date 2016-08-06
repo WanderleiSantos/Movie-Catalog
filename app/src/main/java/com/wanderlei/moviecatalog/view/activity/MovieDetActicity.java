@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wanderlei.moviecatalog.MovieCatalogApplication;
 import com.wanderlei.moviecatalog.R;
@@ -26,7 +28,9 @@ import com.wanderlei.moviecatalog.view.MovieView;
 import com.wanderlei.moviecatalog.view.adapter.ActorsAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -79,6 +83,9 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
     @Bind(R.id.recyclerview_actorsmovie)
     RecyclerView  recyclerView;
 
+    @Bind(R.id.progressbar)
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,7 +130,6 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
     @Override
     public void closeLoading() {
-
     }
 
     @Override
@@ -149,7 +155,7 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
     @Override
     public void showMovie(Movie movie) {
-
+        progressBar.setVisibility(View.VISIBLE);
         this.mMovie = movie;
         actionBar.setTitle(mMovie.getTitle());
 
@@ -162,7 +168,17 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
             Picasso.with(this)
                     .load(getString(R.string.base_url_img_logo500) + mMovie.getPoster_path())
                     .placeholder(R.drawable.noimagemovie)
-                    .into(imageview_photoback);
+                    .into(imageview_photoback, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
 
         } else {
             imageview_photo.setImageDrawable(this.getDrawable(R.drawable.noimagemovie));
@@ -171,9 +187,14 @@ public class MovieDetActicity extends AppCompatActivity implements MovieView {
 
         text_view_description.setText(mMovie.getOverview());
         text_view_original_title.setText(mMovie.getOriginal_title());
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+        text_view_releasedate.setText(simpleDateFormat.format(mMovie.getRelease_date()));
+
+
         // text_view_critics.setText(movie.describeContents());
       //  if (mMovie.getRuntime() != null) {
-    //        text_view_runtime.setText(mMovie.getRuntime());
+            text_view_runtime.setText(mMovie.getRuntime().toString());
      //   }
 
       //  presenter.getMovieCredits(movie.getId());

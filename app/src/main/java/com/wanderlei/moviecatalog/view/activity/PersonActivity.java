@@ -31,6 +31,7 @@ import com.wanderlei.moviecatalog.view.adapter.MoviesAdapter;
 import com.wanderlei.moviecatalog.view.adapter.OnItemClickListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +50,9 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
     private Person mPerson;
     private Cast mCast;
     private ActionBar mActionBar;
-    private Long mId;
+
+    private final int mItensPage = 10;
+    private Integer mPage = 1;
 
     @Inject
     PersonPresenter mPersonPresenter;
@@ -178,11 +181,23 @@ public class PersonActivity extends AppCompatActivity implements PersonView {
 
     @Override
     public void showImages(List<Image> imageList) {
+
+        final ArrayList<Image> imagesListPage = new ArrayList<>();
+        for (int i = 0; i < mPage * mItensPage && i < imageList.size(); i++) {
+            imagesListPage.add(imageList.get(i));
+        }
+
         mRecyclerViewGalery.setVisibility(View.VISIBLE);
         mRecyclerViewGalery.setAdapter(new ImageAdapter(imageList, new OnItemClickListener<Image>() {
             @Override
             public void onClick(Image image) {
-                startActivity(FullImageActivity.newIntent(PersonActivity.this, image, mPerson));
+                ArrayList<Image> imageArrayList = new ArrayList<>();
+                for (Image imageOfList : imagesListPage) {
+                    if (imageOfList instanceof Image) {
+                        imageArrayList.add((Image) imageOfList);
+                    }
+                }
+                startActivity(FullImageActivity.newIntent(PersonActivity.this, imageArrayList, imageArrayList.indexOf(image), mPerson));
             }
         }));
 

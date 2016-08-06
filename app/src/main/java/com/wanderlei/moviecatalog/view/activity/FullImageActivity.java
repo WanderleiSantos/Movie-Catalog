@@ -2,15 +2,16 @@ package com.wanderlei.moviecatalog.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -20,6 +21,9 @@ import com.wanderlei.moviecatalog.R;
 import com.wanderlei.moviecatalog.model.entity.Image;
 import com.wanderlei.moviecatalog.model.entity.Person;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -28,87 +32,89 @@ import butterknife.ButterKnife;
  */
 public class FullImageActivity extends AppCompatActivity {
 
-    ScaleGestureDetector scaleGestureDetector;
-    Matrix matrix;
-
-
     private static final String BUNDLE_KEY_IMAGE = "bundle_key_image";
     private static final String BUNDLE_KEY_PERSON = "bundle_key_person";
-    private Image image;
-    private Person person;
+    private static final String BUNDLE_KEY_POSITION = "BUNDLE_KEY_POSITION";
+    private int mPosition;
+    private List<Image> mImageList;
+
+    private Person mPerson;
     private ActionBar mActionBar;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.imageview_photo)
-    ImageView imageView;
-
-    @Bind(R.id.progressbar)
-    ProgressBar progressBar;
+    @Bind(R.id.viewpager)
+    ViewPager viewPager;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullimage);
+        setContentView(R.layout.activity_fullimageslider);
         ButterKnife.bind(this);
 
-        person = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
-        image = getIntent().getParcelableExtra(BUNDLE_KEY_IMAGE);
+        mPerson  = getIntent().getParcelableExtra(BUNDLE_KEY_PERSON);
 
         setSupportActionBar(toolbar);
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setTitle(person.getName());
+        mActionBar.setTitle(mPerson.getName());
 
-        if (image.getFile_path() != null){
-            progressBar.setVisibility(View.VISIBLE);
+        mImageList = getIntent().getParcelableArrayListExtra(BUNDLE_KEY_IMAGE);
+        mPosition = getIntent().getIntExtra(BUNDLE_KEY_POSITION, 0);
 
-            Picasso.with(this)
-                    .load(this.getString(R.string.base_url_img_logo500) + image.getFile_path())
-                    .placeholder(R.drawable.noimagemovie)
-                    .into(imageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            progressBar.setVisibility(View.GONE);
-                        }
+        viewPager.setAdapter(new PagerAdapter() {
 
-                        @Override
-                        public void onError() {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+            @Override
+            public int getCount() {
+                return mImageList.size();
+            }
 
-        } else {
-            imageView.setImageDrawable(this.getResources().getDrawable(R.drawable.noimagemovie));
-        }
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                View view = LayoutInflater.from(FullImageActivity.this).inflate(R.layout.activity_fullimage, container, false);
+                ImageView imageView = (ImageView) view.findViewById(R.id.imageview_photo);
+                final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+                Picasso.with(FullImageActivity.this)
+                        .load(getString(R.string.base_url_img_logo500) + mImageList.get(position).getFile_path())
+                        .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                    }
 
-        //matrix = new Matrix();
-        //scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+                    @Override
+                    public void onError() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+                container.addView(view);
+                return view;
+            }
+
+            @Override
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
+            }
+
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
+        });
+
+        viewPager.setCurrentItem(mPosition);
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        scaleGestureDetector.onTouchEvent(event);
-//        return true;
-//    }
 
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener{
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            float sf = detector.getScaleFactor();
-            sf = Math.max(0.1f, Math.min(sf, 0.5f));
-            matrix.setScale(sf, sf);
-            imageView.setImageMatrix(matrix);
-            return true;
-        }
-    }
-
-    public static Intent newIntent(Context context, Image image, Person person){
+    public static Intent newIntent(Context context, ArrayList<Image> imageList, int position, Person person) {
         Intent intent = new Intent(context, FullImageActivity.class);
-        intent.putExtra(BUNDLE_KEY_IMAGE, image);
+        intent.putParcelableArrayListExtra(BUNDLE_KEY_IMAGE, imageList);
+        intent.putExtra(BUNDLE_KEY_POSITION, position);
         intent.putExtra(BUNDLE_KEY_PERSON, person);
+
         return intent;
     }
 
@@ -117,7 +123,6 @@ public class FullImageActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
         }
 
         return super.onOptionsItemSelected(item);

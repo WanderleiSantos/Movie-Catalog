@@ -18,10 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:layout_centerHorizontal="true" />
 
-    <include layout="@layout/app_bar_transparent"
-        android:id="@+id/toolbar"/>
+
 
 </RelativeLayout>
